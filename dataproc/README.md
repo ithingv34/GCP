@@ -35,3 +35,74 @@
 17. Oozie: Oozie는 Hadoop 작업을 스케줄링하고 관리하는 워크플로우 엔진입니다. Dataproc에서는 Oozie가 설치되어 있습니다.
 
 18. HBase: HBase는 Hadoop에서 대규모 데이터의 분산 저장을 위한 NoSQL 데이터베이스입니다. Dataproc에서는 HBase가 설치되어 있습니다.
+
+---
+
+Terraform을 사용하여 Dataproc 클러스터를 프로비저닝하는 코드는 다음과 같습니다.
+
+terraform
+Copy code
+provider "google" {
+  project = "<your-project-id>"
+  region  = "us-central1"
+}
+
+resource "google_dataproc_cluster" "example" {
+  name          = "example-cluster"
+  project       = "<your-project-id>"
+  region        = "us-central1"
+  cluster_name  = "example-cluster"
+  master_config {
+    num_instances = 1
+    machine_type  = "n1-standard-4"
+  }
+  worker_config {
+    num_instances = 2
+    machine_type  = "n1-standard-4"
+  }
+  initialization_action {
+    executable_file = "gs://<your-bucket-name>/init-actions/setup.sh"
+  }
+  lifecycle {
+    ignore_changes = [
+      initialization_action,
+      worker_config[0].num_instances,
+      worker_config[1].num_instances,
+    ]
+  }
+}
+
+output "cluster_endpoint" {
+  value = google_dataproc_cluster.example.endpoint
+}
+위 코드에서 <your-project-id>와 <your-bucket-name>을 자신의 프로젝트 ID와 Google Cloud Storage 버킷 이름으로 바꿔주어야 합니다.
+
+위 코드는 Dataproc 클러스터를 생성하고, 마스터 노드와 워커 노드를 설정하며, 클러스터 초기화 스크립트를 실행하는 등의 기능을 포함하고 있습니다. output 블록에서는 클러스터의 엔드포인트를 출력합니다.
+
+참고로, Dataproc 클러스터는 생성 및 삭제 시간이 다소 걸리기 때문에, Terraform apply 시간이 오래 걸릴 수 있습니다.
+
+
+
+
+이상훈
+이어서 말해줘
+!
+
+2 / 2
+
+Dataproc 클러스터를 프로비저닝하는 Terraform 코드를 계속해서 설명해드리겠습니다.
+
+위 코드에서 provider 블록에서는 google 공급자를 사용하도록 지정합니다. project와 region 변수는 Google Cloud 프로젝트 ID와 지역을 설정합니다.
+
+google_dataproc_cluster 리소스 블록에서는 name과 cluster_name 변수를 사용하여 Dataproc 클러스터의 이름을 설정합니다. project와 region 변수를 이용하여 클러스터가 생성될 프로젝트 ID와 지역을 지정합니다.
+
+master_config 블록에서는 마스터 노드의 구성을 설정합니다. num_instances 변수는 마스터 노드 인스턴스의 수를 설정하며, machine_type 변수는 인스턴스에 할당할 머신 유형을 설정합니다.
+
+worker_config 블록에서는 워커 노드의 구성을 설정합니다. num_instances 변수는 워커 노드 인스턴스의 수를 설정하며, machine_type 변수는 인스턴스에 할당할 머신 유형을 설정합니다.
+
+initialization_action 블록에서는 클러스터가 시작될 때 실행할 초기화 스크립트를 지정합니다. 위 코드에서는 gs://<your-bucket-name>/init-actions/setup.sh 스크립트를 실행하도록 지정하였습니다.
+
+lifecycle 블록에서는 클러스터 구성이 변경되어도 재배포를 방지합니다.
+
+마지막으로, output 블록에서는 google_dataproc_cluster 리소스에서 반환된 endpoint 속성을 출력합니다. 이 엔드포인트는 클러스터에 연
+

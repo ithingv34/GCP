@@ -1,5 +1,8 @@
 # GCP Resource Provisioning
 
+- [Cloud VM + SSH access 환경 설정]()
+
+
 1. GCP Terraform 연결하기 (GCS 생성)   
    -  [아이디/비밀번호를 통한 인증](./first-setup/auth1.md)
    -  [Google Cloud Shell을 통한 인증](./first-setup/auth2.md)
