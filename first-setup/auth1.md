@@ -1,7 +1,6 @@
-# 아이디/비밀번호를 통한 인증하기
+# Gcloud 설치 및 인증
 
-- gcloud 설치 및 인증
-  - ubuntu 20.04 (wsl)
+- ubuntu 20.04 (wsl)
 
 ```bash
 # WSL 터미널을 열고 패키지 리스트를 업데이트
@@ -17,4 +16,4 @@ $ curl https://sdk.cloud.google.com | bash
 $ gcloud init
 
 ```
-- `gcloud auth application-default login` 명령어로 인증을 완료
+<img src="./../img/setup/26.png">
