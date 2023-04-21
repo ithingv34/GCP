@@ -1,4 +1,4 @@
-# 서비스 계정의 키를 발급하여 인증
+# Serviceacoount key 인증을 통해 GCS 생성하기
 
 1. 프로젝트의 서비스 계정을 생성하기 위해 IAM 서비스 어카운트 탭 으로 이동한다.
     <img src="./../img/setup/1.png">
@@ -25,15 +25,15 @@
     }
 
     provider "google" {
-        project = "diesel-well-381307"
-        region = "us-central1"
-        zone = "us-central1-f"
+        project = "PROJECT_ID" # diesel-well-381307
+        region = "REGION_NAME" # ex) us-central1
+        zone = "ZONE_NAME" # ex) us-central1-f
         # key file의 경로
-        credentials = "C:/Users/l2t/Desktop/temp/gcp_key/key.json"
+        credentials = "PATH/TO/KEYFILE" # ex) C:/Users/l2t/Desktop/temp/gcp_key/key.json
     }
 
     resource "google_storage_bucket" "gcs1" {
-        name = "bucket-terraform-29292"
+        name = "MY_GCS_BUCKET" # ex) "bucket-terraform-29292"
     }
    ```
 7. terraform 명령어를 실행한다.
@@ -43,4 +43,4 @@
     terraform apply
    ```
 8. 생성된 버킷을 확인한다.
-   
+   <img src="./../img/setup/11.png">

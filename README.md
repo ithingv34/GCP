@@ -1,13 +1,20 @@
-# GCP Resource Provisioning
+# GCP Resource Provisioning with Terraform
 
-- [Cloud VM + SSH access 환경 설정]()
+**GCP 사용을 위한 초기 설정**
+- [gcloud SDK 설치 및 설정](./first-setup/auth1.md)
+
+---
+**Compute Engine**
+- [GCP Compute Engine과 ssh 연결설정](./first-setup/ssh.md)
+
+**GCS**
+-  [Google Cloud Shell에서 GCS 생성](./first-setup/auth2.md)
+-  [Serviceacoount key 인증을 통해 GCS 생성](./first-setup/auth3.md)
+
+**DataProc**
+[GCP Dataproc 생성]()
 
 
-1. GCP Terraform 연결하기 (GCS 생성)   
-   -  [아이디/비밀번호를 통한 인증](./first-setup/auth1.md)
-   -  [Google Cloud Shell을 통한 인증](./first-setup/auth2.md)
-   -  [Service account 생성 및 json 파일을 key로 인증하고 Role 부여하기](./first-setup/auth3.md)
-
-2. GCP Dataproc 테라폼으로 프로비저닝하기
-
+**Google Kuberenetes Engine**
+[GKE 생성]()
 
